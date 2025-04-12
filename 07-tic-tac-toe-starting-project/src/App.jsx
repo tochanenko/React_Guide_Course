@@ -1,9 +1,80 @@
+import { useState } from "react";
+import GameBoard from "./components/GameBoard";
+import Player from "./components/Player";
+import Log from './components/Log.jsx';
+import { WINNING_COMBINATIONS } from './winning-combinations.js';
+import GameOver from "./components/GameOver.jsx";
+
+function derivedActivePlayer(gameTurns) {
+  let currentPlayer = 'X';
+
+  if (gameTurns.length > 0 && gameTurns[0].player === 'X') {
+    currentPlayer = 'O';
+  }
+
+  return currentPlayer;
+}
+
+const initialGameBoard = [
+  [null, null, null],
+  [null, null, null],
+  [null, null, null]
+];
 
 function App() {
-  
+  const [gameTurns, setGameTurns] = useState([]);
+
+  const activePlayer = derivedActivePlayer(gameTurns);
+
+  function handleSelectSquare(rowIndex, colIndex) {
+    setGameTurns(prevTurns => {
+      let currentPlayer = derivedActivePlayer(prevTurns);
+      const updatedTurns = [{ square: { row: rowIndex, col: colIndex}, player: currentPlayer },...prevTurns];
+      return updatedTurns;
+    });
+  }
+
+  let gameBoard = [...initialGameBoard.map(array => [...array])];
+
+  for (const turn of gameTurns) {
+    gameBoard[turn.square.row][turn.square.col] = turn.player;
+  }
+
+  let winner = null;
+
+  for (const combination of WINNING_COMBINATIONS) {
+    const firstSquare = gameBoard[combination[0].row][combination[0].column];
+    const secondSquare = gameBoard[combination[1].row][combination[1].column];
+    const thirdSquare = gameBoard[combination[2].row][combination[2].column];
+
+    if (firstSquare && firstSquare === secondSquare && firstSquare === thirdSquare) {
+      winner = firstSquare;
+    }
+  }
+
+  const hasDraw = gameTurns.length === 9 && !winner;
+
+  function restartGame() {
+    setGameTurns([]);
+  }
 
   return (
-    <h1>React Tic-Tac-Toe</h1>
+    <main>
+      <div id="game-container">
+        <ol id="players" className="highlight-player">
+          <Player name="Player 1" symbol="X" isActive={activePlayer === 'X'}/>
+          <Player name="Player 2" symbol="O" isActive={activePlayer === 'O'}/>
+        </ol>
+
+        {(winner || hasDraw) && <GameOver winner={winner} onRestartGame={restartGame} />}
+        <GameBoard
+          onSelectSquare={handleSelectSquare}
+          board={gameBoard}
+        />
+      </div>
+
+      <Log turns={gameTurns} />
+    </main>
   )
 }
 

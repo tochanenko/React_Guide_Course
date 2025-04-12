@@ -5,6 +5,17 @@ import Log from './components/Log.jsx';
 import { WINNING_COMBINATIONS } from './winning-combinations.js';
 import GameOver from "./components/GameOver.jsx";
 
+const PLAYERS = {
+  X: 'Player 1',
+  O: 'Player 2'
+};
+
+const INITIAL_GAMEBOARD = [
+  [null, null, null],
+  [null, null, null],
+  [null, null, null]
+];
+
 function derivedActivePlayer(gameTurns) {
   let currentPlayer = 'X';
 
@@ -31,17 +42,18 @@ function deriveWinner(gameBoard, players) {
   return winner;
 }
 
-const initialGameBoard = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null]
-];
+function deriveGameBoard(gameTurns) {
+  let gameBoard = [...INITIAL_GAMEBOARD.map(array => [...array])];
+
+  for (const turn of gameTurns) {
+    gameBoard[turn.square.row][turn.square.col] = turn.player;
+  }
+
+  return gameBoard;
+}
 
 function App() {
-  const [players, setPlayers]= useState({
-    X: 'Player 1',
-    O: 'Player 2'
-  });
+  const [players, setPlayers]= useState(PLAYERS);
 
   function handleNameChange(symbol, newName) {
     setPlayers((prevPlayers) => {
@@ -64,11 +76,7 @@ function App() {
     });
   }
 
-  let gameBoard = [...initialGameBoard.map(array => [...array])];
-
-  for (const turn of gameTurns) {
-    gameBoard[turn.square.row][turn.square.col] = turn.player;
-  }
+  let gameBoard = deriveGameBoard(gameTurns);
 
   let winner = deriveWinner(gameBoard, players);
 
@@ -82,8 +90,8 @@ function App() {
     <main>
       <div id="game-container">
         <ol id="players" className="highlight-player">
-          <Player name="Player 1" symbol="X" isActive={activePlayer === 'X'} onPlayerChange={handleNameChange} />
-          <Player name="Player 2" symbol="O" isActive={activePlayer === 'O'} onPlayerChange={handleNameChange} />
+          <Player name={PLAYERS.X} symbol="X" isActive={activePlayer === 'X'} onPlayerChange={handleNameChange} />
+          <Player name={PLAYERS.O} symbol="O" isActive={activePlayer === 'O'} onPlayerChange={handleNameChange} />
         </ol>
 
         {(winner || hasDraw) && <GameOver winner={winner} onRestartGame={restartGame} />}

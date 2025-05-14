@@ -1,8 +1,11 @@
 import { Outlet } from "react-router-dom";
 import MainNavigation from "../components/MainNavigation";
+import PageContent from '../components/PageContent';
 
 export default function HomePage() {
   return <>
-    <h1>This is HomePage</h1>
+    <PageContent title="Welcome">
+      <p>Browse all our amazing events!</p>
+    </PageContent>
   </>;
 }

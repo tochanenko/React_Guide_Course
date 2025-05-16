@@ -1,12 +1,1 @@
-{
-  "events": [
-    {
-      "title": "A new event",
-      "image": "https://cdn.muenchen-p.de/fl_progressive,q_65/.imaging/stk/responsive/teaser300/dms/va-2016/muenchner-christkindlmarkt/christkindlmarkt-marienplat-logo-hp/document/christkindlmarkt-marienplat-logo-hp.jpg",
-      "date": "2022-10-01",
-      "description": "Some awesome event!",
-      "id": "2a42fcc4-ea21-4bdd-abf6-c40006dc66a9"
-    }
-  ],
-  "users": []
-}
+{"events":[{"title":"Paris FE Conference 2025","image":"https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=873&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D","date":"2025-06-27","description":"An amazing event","id":"707da0b2-bc0d-4051-8e86-c17ff7813ac1"}],"users":[{"email":"test@test.com","password":"$2a$12$Q9KaFVWUvOf51nG2JQCS..vICBbHnvIW6uj/0Ws0qeDU6DUUNbaoK","id":"82738fc3-3e3f-4d0b-bc0a-3a79f5b0c78d"},{"email":"t2@t.com","password":"$2a$12$yuv1M7lcoo8x49JyubzbiObDF3pg2Qn.z3aH.eiFgZaMD1d2uPRga","id":"438a771c-8c75-48ce-b547-11cab8639363"},{"email":"vlad@gmail.com","password":"$2a$12$FS3dpvKv9ybwzLdZTYMtJ.tvvcOfzo033XhvzlbzRH8RnzlGEI0a2","id":"d58c630a-f750-44be-a1a7-664cffdbbd04"}]}
